@@ -1,0 +1,7 @@
+<div class="navbar">
+  <button type="submit" href="{% url 'home' %}">Mergo</button>
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+</div>

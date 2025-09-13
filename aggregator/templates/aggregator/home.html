@@ -1,0 +1,71 @@
+{% extends 'aggregator/base.html' %} {% block title %}Головна{% endblock %}
+{%block content %}
+<div class="container">
+  <h1>Mergo - Schedule Management System</h1>
+
+  <!-- Messages -->
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Upload Schedule Section -->
+  <div class="section">
+    <h2>📄 Завантажити графік</h2>
+    <p class="description">Завантажте excel (.xlsx) файл з графіком</p>
+    <form
+      method="post"
+      action="{% url 'upload_file' %}"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="schedule_file">Виберіть файл:</label>
+        <input
+          type="file"
+          id="schedule_file"
+          name="schedule_file"
+          accept=".xlsx"
+          required
+        />
+      </div>
+      <button type="submit" class="upload-btn">Завантажити</button>
+    </form>
+  </div>
+
+  {% if user.is_dispatcher %}
+  <!-- Generate Commerce Report Section -->
+  <div class="section">
+    <h2>📊 Сформувати комерційний звіт</h2>
+    <p class="description">Сформувати і завантажити звіт на певну дату</p>
+    <form method="post" action="{% url 'generate_commerce_report' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="report_date">Виберіть дату:</label>
+        <input type="date" id="report_date" name="report_date" required />
+      </div>
+      <button type="submit" class="download-btn">Сформувати</button>
+    </form>
+  </div>
+
+  <!-- Generate PRS Section -->
+  <div class="section">
+    <h2>📋 Сформувати PRS</h2>
+    <p class="description">
+      Сформувати і завантажити PRS XML файл на певну дату
+    </p>
+    <form method="post" action="{% url 'generate_prs_file' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="prs_date">Виберіть дату:</label>
+        <input type="date" id="prs_date" name="prs_date" required />
+      </div>
+      <button type="submit" class="download-btn">Сформувати PRS</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

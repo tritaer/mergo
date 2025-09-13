@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="shortcut icon" href="{% static 'favicon.ico' %}" /> -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+      body {
+        background-color: whitesmoke;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+
+  <body>
+    {% block header %} {% include 'aggregator/header.html' %} {% endblock header %}
+
+    <div class="content">
+      {% block content %}{% endblock content %}
+    </div>
+
+    {% block footer %}{% endblock footer %} {% block extra_js %}{% endblock %}
+  </body>
+</html>
