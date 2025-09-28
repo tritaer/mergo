@@ -136,8 +136,7 @@ def generate_prs(date: datetime):
     print('PRS data:')
     for unit, data in report_data.items():
         print(f'Aggregation Unit: {unit}, Data: {data}')
-    # TODO: save PRS data to DB with version
-    # data need to be saved in DB?
+    # TODO: save PRS data to DB with version. data need to be saved in DB? data, reort_data, version, cdt, process_type
     save_prs_xml(report_data, date, duration)
 
 

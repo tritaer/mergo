@@ -92,15 +92,8 @@ auth_models.User.add_to_class('is_dispatcher', property(is_dispatcher))
 
 
 def is_generation(self):
-    return self.generation_set.count() > 0
+    return not self.is_staff
 
 
 auth_models.User.add_to_class('is_generation', property(is_generation))
-
-
-def is_orphan(self):
-    return self.is_dispatcher is False and self.is_generation is False
-
-
-auth_models.User.add_to_class('is_orphan', property(is_orphan))
-
+    

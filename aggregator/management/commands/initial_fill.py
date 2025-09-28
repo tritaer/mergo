@@ -16,6 +16,8 @@ class Command(BaseCommand):
         u2.save()
         u3 = User.objects.create_user(username='generation', password='generation', is_staff=False, is_superuser=False)
         u3.save()
+        u4 = User.objects.create_user(username='gen2', password='gen2', is_staff=False, is_superuser=False)
+        u4.save()
         # add AU
         au1 = AggregationUnit(alias='Полтавська', mms_name='ETG-GE_UA53', w_code='62W217838713880D')
         au1.save()

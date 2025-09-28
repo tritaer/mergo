@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.conf import settings
 from datetime import datetime
 import os
-from .schedule_io import upload_schedule, generate_report
-from .utils import generate_prs
+from .utils import generate_prs, generate_report, upload_schedule
 from .models import CommerceReport
 from django.contrib.auth.decorators import login_required
 
@@ -13,12 +12,11 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def home(request):
     """Main page with upload form and download options"""
-    if request.user.is_dispatcher:
-        return render(request, 'aggregator/home.html')
-    else:
-        # TODO
-        return render(request, 'aggregator/home.html')
-    # return render(request, 'aggregator/home.html')
+    # if request.user.is_dispatcher:
+    #     return render(request, 'aggregator/home.html')
+    # else:
+    #     return render(request, 'aggregator/home.html')
+    return render(request, 'aggregator/home.html')
 
 
 @login_required
@@ -40,10 +38,10 @@ def upload_file(request):
         
         try:
             result = upload_schedule(file, request.user)
-            if result and result.startswith('Station') or result.startswith('File must') or result.startswith('Invalid'):
-                messages.error(request, result)
-            else:
+            if result and result.startswith('Success'):
                 messages.success(request, 'Schedule uploaded successfully!')
+            else:
+                messages.error(request, result)
         except Exception as e:
             messages.error(request, f'Error uploading file: {str(e)}')
     
